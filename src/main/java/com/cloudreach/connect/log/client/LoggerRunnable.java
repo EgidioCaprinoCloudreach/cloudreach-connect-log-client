@@ -47,6 +47,8 @@ class LoggerRunnable implements Runnable {
 
     private HttpsURLConnection openConnectionTo(URL url) throws IOException {
         HttpsURLConnection connection = (HttpsURLConnection) url.openConnection();
+        connection.setDoInput(true);
+        connection.setDoOutput(true);
         connection.setRequestMethod("POST");
         connection.setRequestProperty("AuthKey", appKey);
         connection.setRequestProperty("Content-Type", "application/json");
