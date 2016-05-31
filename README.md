@@ -18,7 +18,7 @@ Add the following to your pom.xml file.
   <dependency>
       <groupId>com.cloudreach</groupId>
       <artifactId>connect-log-client</artifactId>
-      <version>1.0</version>
+      <version>1.1</version>
   </dependency>
 </dependencies>
 ```
