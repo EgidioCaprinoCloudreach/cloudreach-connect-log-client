@@ -18,7 +18,15 @@ Add the following to your pom.xml file.
   <dependency>
       <groupId>com.cloudreach</groupId>
       <artifactId>connect-log-client</artifactId>
-      <version>1.0</version>
+      <version>1.2</version>
   </dependency>
 </dependencies>
+```
+## Usage
+
+``` java
+LogService logger = new CloudreachConnectLogger(SERVICE_URL, APP_KEY);
+logger.info("Info message");
+logger.error("Error message");
+logger.error("Error message with exception stack trace", new Exception());
 ```
