@@ -8,14 +8,17 @@ import java.util.logging.Level;
 
 public class CloudreachConnectLogger implements LogService {
 
-    public static final String SYSTEM_PROPERTY_URL = CloudreachConnectLogger.class.getName() + ".url";
-
+    private final String serviceUrl;
     private final String appKey;
 
-    public CloudreachConnectLogger(String appKey) {
+    public CloudreachConnectLogger(String serviceUrl, String appKey) {
+        if (serviceUrl == null) {
+            throw new NullPointerException("Service URL cannot be null");
+        }
         if (appKey == null) {
             throw new NullPointerException("Application key cannot be null");
         }
+        this.serviceUrl = serviceUrl;
         this.appKey = appKey;
     }
 
@@ -44,7 +47,7 @@ public class CloudreachConnectLogger implements LogService {
     private void log(String message, long level) {
         message = StringUtils.trimToNull(message);
         if (message != null) {
-            Thread thread = new Thread(new LoggerRunnable(appKey, level, message));
+            Thread thread = new Thread(new LoggerRunnable(serviceUrl, appKey, level, message));
             thread.start();
         }
     }

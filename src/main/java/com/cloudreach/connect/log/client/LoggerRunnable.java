@@ -9,14 +9,12 @@ import javax.net.ssl.HttpsURLConnection;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
-import java.net.MalformedURLException;
 import java.net.URL;
-
-import static com.cloudreach.connect.log.client.CloudreachConnectLogger.SYSTEM_PROPERTY_URL;
 
 @RequiredArgsConstructor
 class LoggerRunnable implements Runnable {
 
+    private final String serviceUrl;
     private final String appKey;
     private final long level;
     private final String message;
@@ -24,7 +22,7 @@ class LoggerRunnable implements Runnable {
     public void run() {
         HttpsURLConnection connection = null;
         try {
-            URL url = createUrl();
+            URL url = new URL(serviceUrl);
             connection = openConnectionTo(url);
             MessageRequest messageRequest = new MessageRequest(level, message);
             populateRequest(connection, messageRequest);
@@ -35,14 +33,6 @@ class LoggerRunnable implements Runnable {
         } catch (IOException e) {
             handleError(connection, e);
         }
-    }
-
-    private URL createUrl() throws MalformedURLException {
-        String url = System.getProperty(SYSTEM_PROPERTY_URL);
-        if (url == null) {
-            throw new IllegalStateException("System property not set: " + SYSTEM_PROPERTY_URL);
-        }
-        return new URL(url);
     }
 
     private HttpsURLConnection openConnectionTo(URL url) throws IOException {
