@@ -4,9 +4,13 @@ import com.cloudreach.connect.api.LogService;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.exception.ExceptionUtils;
 
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 import java.util.logging.Level;
 
 public class CloudreachConnectLogger implements LogService {
+
+    private final ExecutorService executorService = Executors.newSingleThreadExecutor();
 
     private final String serviceUrl;
     private final String appKey;
@@ -47,8 +51,7 @@ public class CloudreachConnectLogger implements LogService {
     private void log(String message, long level) {
         message = StringUtils.trimToNull(message);
         if (message != null) {
-            Thread thread = new Thread(new LoggerRunnable(serviceUrl, appKey, level, message));
-            thread.start();
+            executorService.submit(new LoggerRunnable(serviceUrl, appKey, level, message));
         }
     }
 
