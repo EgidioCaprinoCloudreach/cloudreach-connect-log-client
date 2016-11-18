@@ -6,11 +6,11 @@
 
     <groupId>com.cloudreach</groupId>
     <artifactId>connect-log-client</artifactId>
-    <version>1.3</version>
+    <version>1.4</version>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <crconnect.api.version>1.3</crconnect.api.version>
+        <crconnect.api.version>1.4</crconnect.api.version>
         <github.global.server>github-mvn-repo</github.global.server>
     </properties>
 
@@ -31,7 +31,7 @@
         <dependency>
             <groupId>com.cloudreach.connect.api</groupId>
             <artifactId>cloudreach-connect-api</artifactId>
-            <version>${crconnect.api.version}</version>
+            <version>1.6.5</version>
             <scope>provided</scope>
         </dependency>
         <dependency>
